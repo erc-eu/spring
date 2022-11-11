@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>REST + Ajax Example</h1>
+    <div>
+        codigo: <br><input type="number" id="turmCodigo"> <br/>
+        disciplina: <br><input type="text" id="turmDisciplina"> <br/>
+        semestre: <br><input type="number" id="turmSemestre"> <br/>
+        matricula: <br><input type="number" id="turmMatricula"> <br/>
+        nome: <br><input type="text" id="turmNome"> <br/>
+        email: <br><input type="text" id="turmEmail"> <br/><br>
+        <input type="button" value="Save" onclick="save()">
+    </div>
+    <div id="produtos"></div>
+    <script>
+        function save(){
+            let codigo = document.getElementById("turmCodigo").value;
+            let disciplina = document.getElementById("turmDisciplina").value;
+            let semestre = document.getElementById("turmSemestre").value;
+            let matricula = document.getElementById("turmMatricula").value;
+            let nome = document.getElementById("turmNome").value;
+            let email = document.getElementById("turmEmail").value;
+            newprod = {codigo: parseInt(codigo), disciplina: disciplina, semestre: parseInt(semestre),
+            matricula:parseInt(matricula),nome:nome, email:email};
+           
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/api/turma', true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            xhr.onload = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+                    loadList()
+                }
+            }
+
+            xhr.send(JSON.stringify(newprod));
+        }
+
+        function loadList(){
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("GET", "/api/turma", true);
+			xhttp.onload = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+					produtos = JSON.parse(xhttp.responseText);
+			    	produtosDiv = document.getElementById("produtos");
+                    lista = '<ul>';
+                    for (const i in produtos){
+                        let p = produtos[i];
+                        lista += '<li>codigo:' + p.codigo + ' - disciplina: ' + p.disciplina + ' - semestre: ' + p.semestre + ' - matricula: ' + p.matricula +
+                            ' - nome: ' + p.nome + ' - email: ' + p.email +'</li>';
+                    } 
+                    lista += '</ul>';
+                    produtosDiv.innerHTML = lista;
+                }
+			};
+			xhttp.send();
+		}
+		loadList();
+    </script>
+</body>
+</html>
