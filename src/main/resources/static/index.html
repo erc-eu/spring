@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 </head>
 <body>
     
@@ -29,7 +24,7 @@
             let email = document.getElementById("turmEmail").value;
             newprod = {codigo: parseInt(codigo), disciplina: disciplina, semestre: parseInt(semestre),
             matricula:parseInt(matricula),nome:nome, email:email};
-           
+            
             var xhr = new XMLHttpRequest();
             xhr.open("POST", '/api/turma', true);
             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -53,8 +48,8 @@
                     lista = '<ul>';
                     for (const i in produtos){
                         let p = produtos[i];
-                        lista += '<li>codigo:' + p.codigo + ' - disciplina: ' + p.disciplina + ' - semestre: ' + p.semestre + ' - matricula: ' + p.matricula +
-                            ' - nome: ' + p.nome + ' - email: ' + p.email +'</li>';
+                        lista += '<li>codigo:' + p.codigo + ' / disciplina: ' + p.disciplina + ' / semestre: ' + p.semestre + ' / matricula: ' + p.matricula +
+                            ' / nome: ' + p.nome + ' / email: ' + p.email +'</li>';
                     } 
                     lista += '</ul>';
                     produtosDiv.innerHTML = lista;

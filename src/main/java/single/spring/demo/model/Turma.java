@@ -1,18 +1,17 @@
 package single.spring.demo.model;
 
-
 public class Turma extends Aluno{
     private int codigo;
     private String disciplina;
     private int semestre;
 
-    public Turma(int codigo, String disciplina, int semestre, int matricula, String nome, String email) {
+    public Turma(int matricula, String nome, String email, int codigo, String disciplina, int semestre) {
         super(matricula, nome, email);
         this.codigo = codigo;
         this.disciplina = disciplina;
         this.semestre = semestre;
-        
     }
+
 
     public int getCodigo() {
         return codigo;

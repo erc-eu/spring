@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
 import single.spring.demo.model.Turma;
 
 @Service
@@ -14,7 +15,7 @@ public class TurmaService {
     private List<Turma> turmas = new ArrayList<Turma>();
 
     public TurmaService() {
-        turmas.addAll(Arrays.asList(new Turma( 1, "Matematica",2,1,"eric","ericgtxh@Hotmail.com")));
+        turmas.addAll(Arrays.asList(new Turma( 1, "eric","ericgtxh@hotmail.com",1,"WEB",1)));
 	}
 
     public List<Turma> getTurmas(String buscaNome) {
@@ -40,4 +41,31 @@ public class TurmaService {
         }
         return null;
     }
+
+    public Turma updateTurma(int codigo, Turma novo) {
+        for (Turma turma : turmas) {
+            if(turma.getCodigo() == codigo)
+            {
+                turma.setDisciplina(novo.getDisciplina());
+                turma.setSemestre(novo.getSemestre());
+                turma.setMatricula(novo.getMatricula());
+                turma.setNome(novo.getNome());
+                turma.setEmail(novo.getEmail());
+                return turma;
+            }
+        }
+        return null;
+    }
+
+    public Turma deleteTurma(int codigo) {
+        for (int i = 0; i < turmas.size(); i++) {
+            Turma t = turmas.get(i);
+            if(t.getCodigo() == codigo){
+                turmas.remove(t);
+                return t;
+            }
+        }
+        return null;
+    }
+
 }
