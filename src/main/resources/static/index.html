@@ -3,28 +3,28 @@
 </head>
 <body>
     
-    <h1>REST + Ajax Example</h1>
+    <h1>Adicionar Turma</h1>
     <div>
-        codigo: <br><input type="number" id="turmCodigo"> <br/>
-        disciplina: <br><input type="text" id="turmDisciplina"> <br/>
         semestre: <br><input type="number" id="turmSemestre"> <br/>
-        matricula: <br><input type="number" id="turmMatricula"> <br/>
-        nome: <br><input type="text" id="turmNome"> <br/>
-        email: <br><input type="text" id="turmEmail"> <br/><br>
+        Disciplina: <br>
+        codigo <br><input type="text" id="turmCodigo"><br>
+        Nome:<br><input type="text" id="turmNome"><br/>
+        Credito:<br><input type="text" id="turmCredito"><br>
+        
         <input type="button" value="Save" onclick="save()">
     </div>
     <div id="produtos"></div>
     <script>
         function save(){
-            let codigo = document.getElementById("turmCodigo").value;
-            let disciplina = document.getElementById("turmDisciplina").value;
+    
             let semestre = document.getElementById("turmSemestre").value;
-            let matricula = document.getElementById("turmMatricula").value;
-            let nome = document.getElementById("turmNome").value;
-            let email = document.getElementById("turmEmail").value;
-            newprod = {codigo: parseInt(codigo), disciplina: disciplina, semestre: parseInt(semestre),
-            matricula:parseInt(matricula),nome:nome, email:email};
-            
+            disc = new Object();
+            disc.codigo = document.getElementById("turmCodigo").value;
+            disc.nome = document.getElementById("turmNome").value;
+            disc.credito = document.getElementById("turmCredito").value;
+            console.log(disc);
+            newprod = {semestre: parseInt(semestre), disciplina:disc}
+            console.log(JSON.stringify(newprod));
             var xhr = new XMLHttpRequest();
             xhr.open("POST", '/api/turma', true);
             xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -48,8 +48,7 @@
                     lista = '<ul>';
                     for (const i in produtos){
                         let p = produtos[i];
-                        lista += '<li>codigo:' + p.codigo + ' / disciplina: ' + p.disciplina + ' / semestre: ' + p.semestre + ' / matricula: ' + p.matricula +
-                            ' / nome: ' + p.nome + ' / email: ' + p.email +'</li>';
+                        lista += '<li>codigo:' + p.codigo + ' / disciplina: ' + p.disciplina.nome + ' / semestre: ' + p.semestre + '</li>';
                     } 
                     lista += '</ul>';
                     produtosDiv.innerHTML = lista;
